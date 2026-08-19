@@ -1,0 +1,4 @@
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
+*.css linguist-language=CSS
+*.mjs linguist-language=JavaScript

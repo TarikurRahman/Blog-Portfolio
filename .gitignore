@@ -39,9 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-*.ts linguist-language=TypeScript
-*.tsx linguist-language=TypeScript
-
 
 # scratch
 /scratch
