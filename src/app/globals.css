@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #111844;
+  --color-brand-accent: #FF653F;
+  --color-brand-card: #182054;
+  --color-brand-card-dark: #0d133a;
+  --color-brand-card-light: #202b70;
+  --color-brand-text: #ffffff;
+  --color-brand-text-muted: #94a3b8;
+  --color-brand-border: rgba(255, 101, 63, 0.15);
+  --color-brand-border-white: rgba(255, 255, 255, 0.08);
+
+  --font-sans: var(--font-geist-sans), Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+:root {
+  --background: #111844;
+  --foreground: #ffffff;
+}
+
+body {
+  background-color: #111844;
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom glow utility */
+.glow-accent {
+  box-shadow: 0 0 40px -5px rgba(255, 101, 63, 0.35);
+}
+
+.glow-accent-sm {
+  box-shadow: 0 0 20px -2px rgba(255, 101, 63, 0.25);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(255, 101, 63, 0.5);
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(24, 32, 84, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-accent {
+  background: rgba(24, 32, 84, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 101, 63, 0.2);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #111844;
+}
+::-webkit-scrollbar-thumb {
+  background: #182054;
+  border-radius: 4px;
+  border: 2px solid #111844;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF653F;
+}
+
+/* Premium Rotating Gradient Border Button */
+@keyframes rotate-border {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-rotate-border {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5px;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: transparent;
+  box-shadow: 0 0 12px rgba(255, 101, 63, 0.2);
+  transition: all 0.3s ease;
+}
+
+.animate-rotate-border::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 30%,
+    #FF653F 50%,
+    transparent 70%
+  );
+  animation: rotate-border 4s linear infinite;
+  z-index: 0;
+}
+
+.animate-rotate-border:hover::before {
+  animation-duration: 2s;
+}
+
+.animate-rotate-border:hover {
+  box-shadow: 0 0 20px rgba(255, 101, 63, 0.4);
+  transform: translateY(-1px);
+}
+
+.animate-rotate-border > * {
+  position: relative;
+  z-index: 1;
+  background-color: #111844;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+.animate-rotate-border:hover > * {
+  background-color: #182054;
+}
