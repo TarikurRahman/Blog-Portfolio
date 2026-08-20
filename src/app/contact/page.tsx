@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Calendar, Send, Github, Linkedin, Twitter, Facebook } from 'lucide-react';
-import { mockDb } from '@/data/mockDb';
 import { useToast } from '@/context/ToastContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -15,7 +14,7 @@ const defaults = {
   title: "Let's Build Something Amazing",
   subtitle: "Fill out the contact form or reach out through social channels. I usually respond within 12 hours.",
   introText: "Have a project in mind, need a developer, or want to discuss architectures? Drop me a message and I will reply as soon as possible.",
-  email: "contact@tarikur.dev",
+  email: "tarikurrahman2008@gmail.com",
   phone: "+880 1700 000000",
   location: "Dhaka, Bangladesh",
   availabilityText: "Open for Freelance & Contracts",
@@ -33,6 +32,10 @@ const defaults = {
   successMessage: "Your message has been sent successfully!",
 };
 
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const WEB3FORMS_ACCESS_KEY = '71c361c1-3ee9-4436-9ea5-b7aa8d9edb6b';
+type ContactSettings = Partial<typeof defaults>;
+
 export default function ContactPage() {
   const { showToast } = useToast();
 
@@ -42,8 +45,7 @@ export default function ContactPage() {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [settings, setSettings] = useState<any>(null);
-  const [isLoadingSettings, setIsLoadingSettings] = useState(true);
+  const [settings, setSettings] = useState<ContactSettings | null>(null);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -57,14 +59,12 @@ export default function ContactPage() {
         }
       } catch (err) {
         console.error('Failed to fetch contact settings:', err);
-      } finally {
-        setIsLoadingSettings(false);
       }
     };
     fetchSettings();
   }, []);
 
-  const data = settings || defaults;
+  const data = { ...defaults, ...settings };
 
   const contactInfo = [
     { id: 1, label: 'Email', value: data.email, icon: Mail, color: 'text-brand-accent' },
@@ -90,10 +90,18 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('/api/contact', {
+      const formData = new FormData();
+      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('subject', subject);
+      formData.append('message', message);
+      formData.append('replyto', email);
+      formData.append('from_name', 'Blog Portfolio Contact Form');
+
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: formData,
       });
 
       const json = await res.json();

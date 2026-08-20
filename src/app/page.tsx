@@ -157,7 +157,7 @@ export default function HomePage() {
               {/* Inner glowing core */}
               <div className="absolute inset-0 bg-radial-gradient from-brand-accent/20 to-transparent pointer-events-none" />
               <OptimizedImage
-                src={pageMedia?.homeHeroImageUrl || "/nafij-islam.jpg"}
+                src={pageMedia?.homeHeroImageUrl || "/Tarikur-Rahman.jpg"}
                 alt="Tarikur Rahman"
                 fill
                 priority
